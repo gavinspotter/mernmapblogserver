@@ -43,6 +43,10 @@ const getPlaceByUserId = (req, res, next) => {
   res.json({ place });
 };
 
+const createPlace = (req, res, next) => {};
+
 exports.getPlaceById = getPlaceById;
 
 exports.getPlaceByUserId = getPlaceByUserId;
+
+exports.createPlace = createPlace;
