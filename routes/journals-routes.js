@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/user/:uid", journalsControllers.getJournalsByUserId);
 
-router.post("/");
+router.post("/", journalsControllers.createJournal);
 
 router.patch("/:jid");
 

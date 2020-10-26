@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require("uuid");
+
 const HttpError = require("../models/http-error");
 
 let DUMMY_JOURNAL = [
@@ -22,4 +24,19 @@ const getJournalsByUserId = (req, res, next) => {
   res.json({ journals });
 };
 
+const createJournal = (req, res, next) => {
+  const { date, entry, creator } = req.body;
+  const createdJournal = {
+    id: uuidv4(),
+    date,
+    entry,
+    creator,
+  };
+
+  DUMMY_JOURNAL.push(createdJournal);
+
+  res.status(201).json({ journal: createdJournal });
+};
+
 exports.getJournalsByUserId = getJournalsByUserId;
+exports.createJournal = createJournal;
