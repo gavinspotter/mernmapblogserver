@@ -40,6 +40,9 @@ const createJournal = (req, res, next) => {
 
 const updateJournal = (req, res, next) => {};
 
+const deleteJournal = (req, res, next) => {};
+
 exports.getJournalsByUserId = getJournalsByUserId;
 exports.createJournal = createJournal;
 exports.updateJournal = updateJournal;
+exports.deleteJournal = deleteJournal;
