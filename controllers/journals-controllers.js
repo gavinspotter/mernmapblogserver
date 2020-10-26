@@ -38,5 +38,8 @@ const createJournal = (req, res, next) => {
   res.status(201).json({ journal: createdJournal });
 };
 
+const updateJournal = (req, res, next) => {};
+
 exports.getJournalsByUserId = getJournalsByUserId;
 exports.createJournal = createJournal;
+exports.updateJournal = updateJournal;
