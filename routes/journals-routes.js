@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.get("/user/:uid", placesControllers.getJournalsByUserId);
 
-router.post("/", placesControllers.createPlace);
+router.post("/", placesControllers.createJournal);
 
-router.patch("/:jid", placesControllers.updatePlace);
+router.patch("/:jid", placesControllers.updateJournal);
 
-router.delete("/:jid", placesControllers.deletePlace);
+router.delete("/:jid", placesControllers.deleteJournal);
 
 module.exports = router;
