@@ -4,12 +4,12 @@ const journalsControllers = require("../controllers/journals-controllers");
 
 const router = express.Router();
 
-router.get("/user/:uid", placesControllers.getJournalsByUserId);
+router.get("/user/:uid", journalsControllers.getJournalsByUserId);
 
-router.post("/", placesControllers.createJournal);
+router.post("/", journalsControllers.createJournal);
 
-router.patch("/:jid", placesControllers.updateJournal);
+router.patch("/:jid", journalsControllers.updateJournal);
 
-router.delete("/:jid", placesControllers.deleteJournal);
+router.delete("/:jid", journalsControllers.deleteJournal);
 
 module.exports = router;
