@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.get("/user/:uid", journalsControllers.getJournalsByUserId);
 
-router.post("/", journalsControllers.createJournal);
+router.post("/");
 
-router.patch("/:jid", journalsControllers.updateJournal);
+router.patch("/:jid");
 
-router.delete("/:jid", journalsControllers.deleteJournal);
+router.delete("/:jid");
 
 module.exports = router;
