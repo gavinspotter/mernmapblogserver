@@ -8,7 +8,7 @@ router.get("/user/:uid", journalsControllers.getJournalsByUserId);
 
 router.post("/", journalsControllers.createJournal);
 
-router.patch("/:jid");
+router.patch("/:jid", journalsControllers.updateJournal);
 
 router.delete("/:jid");
 
