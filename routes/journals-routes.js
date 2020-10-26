@@ -10,6 +10,6 @@ router.post("/", journalsControllers.createJournal);
 
 router.patch("/:jid", journalsControllers.updateJournal);
 
-router.delete("/:jid");
+router.delete("/:jid", journalsControllers.deleteJournal);
 
 module.exports = router;
