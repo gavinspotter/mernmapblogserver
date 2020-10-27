@@ -37,8 +37,12 @@ const createBlog = (req, res, next) => {
 
 const updateBlog = (req, res, next) => {};
 
+const deleteBlog = (req, res, next) => {};
+
 exports.getBlogsByUserId = getBlogsByUserId;
 
 exports.createBlog = createBlog;
 
 exports.updateBlog = updateBlog;
+
+exports.deleteBlog = deleteBlog;
