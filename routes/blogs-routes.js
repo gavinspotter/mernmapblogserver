@@ -8,7 +8,7 @@ router.get("/user/:uid", blogsControllers.getBlogsByUserId);
 
 router.post("/", blogsControllers.createBlog);
 
-router.patch("/:jid");
+router.patch("/:jid", blogsControllers.updateBlog);
 
 router.delete("/:jid");
 
