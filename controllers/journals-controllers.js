@@ -13,15 +13,15 @@ let DUMMY_JOURNAL = [
 
 const getJournalsByUserId = (req, res, next) => {
   const userId = req.params.uid;
-  const journals = DUMMY_JOURNAL.filter((p) => {
+  const journal = DUMMY_JOURNAL.filter((p) => {
     return p.creator === userId;
   });
 
-  if (!journals || journals.length === 0) {
+  if (!journal || journal.length === 0) {
     return next(new HttpError("could not find journals"));
   }
 
-  res.json({ journals });
+  res.json({ journal });
 };
 
 const createJournal = (req, res, next) => {
@@ -38,7 +38,19 @@ const createJournal = (req, res, next) => {
   res.status(201).json({ journal: createdJournal });
 };
 
-const updateJournal = (req, res, next) => {};
+const updateJournal = (req, res, next) => {
+  const { date, entry } = req.body;
+  const journalId = req.params.jid;
+
+  const updateJournal = { ...DUMMY_JOURNAL.find((j) => j.id === journalId) };
+  const journalIndex = DUMMY_JOURNAL.findIndex((j) => j.id === journalId);
+  updateJournal.date = date;
+  updateJournal.entry = entry;
+
+  DUMMY_JOURNAL[journalIndex] = updateJournal;
+
+  res.status(200).json({ journal: updateJournal });
+};
 
 const deleteJournal = (req, res, next) => {};
 
