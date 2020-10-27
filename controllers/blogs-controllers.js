@@ -35,6 +35,10 @@ const createBlog = (req, res, next) => {
   res.status(201).json({ blog: createdBlog });
 };
 
+const updateBlog = (req, res, next) => {};
+
 exports.getBlogsByUserId = getBlogsByUserId;
 
 exports.createBlog = createBlog;
+
+exports.updateBlog = updateBlog;
