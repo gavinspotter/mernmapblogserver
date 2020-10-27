@@ -52,7 +52,11 @@ const updateJournal = (req, res, next) => {
   res.status(200).json({ journal: updateJournal });
 };
 
-const deleteJournal = (req, res, next) => {};
+const deleteJournal = (req, res, next) => {
+  const journalId = req.params.jid;
+  DUMMY_JOURNAL = DUMMY_JOURNAL.filter((j) => j.id !== journalId);
+  res.status(200).json({ message: "deleted journal" });
+};
 
 exports.getJournalsByUserId = getJournalsByUserId;
 exports.createJournal = createJournal;
