@@ -23,4 +23,18 @@ const getBlogsByUserId = (req, res, next) => {
   res.json({ blog });
 };
 
+const createBlog = (req, res, next) => {
+  const { blgentry, creator } = req.body;
+  const createdBlog = {
+    id: uuidv4(),
+    blgentry,
+    creator,
+  };
+
+  DUMMY_BLOG.push(createdBlog);
+  res.status(201).json({ blog: createdBlog });
+};
+
 exports.getBlogsByUserId = getBlogsByUserId;
+
+exports.createBlog = createBlog;
