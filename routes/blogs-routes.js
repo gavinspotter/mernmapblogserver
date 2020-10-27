@@ -4,7 +4,7 @@ const journalsControllers = require("../controllers/blogs-controllers");
 
 const router = express.Router();
 
-router.get("/user/:uid");
+router.get("/user/:uid", journalsControllers.getBlogsByUserId);
 
 router.post("/");
 
