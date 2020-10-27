@@ -8,8 +8,8 @@ router.get("/user/:uid", blogsControllers.getBlogsByUserId);
 
 router.post("/", blogsControllers.createBlog);
 
-router.patch("/:jid", blogsControllers.updateBlog);
+router.patch("/:bid", blogsControllers.updateBlog);
 
-router.delete("/:jid");
+router.delete("/:bid");
 
 module.exports = router;

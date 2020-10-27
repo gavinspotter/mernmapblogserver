@@ -35,7 +35,18 @@ const createBlog = (req, res, next) => {
   res.status(201).json({ blog: createdBlog });
 };
 
-const updateBlog = (req, res, next) => {};
+const updateBlog = (req, res, next) => {
+  const { blgentry } = req.body;
+  const blogId = req.params.bid;
+
+  const updateBlog = { ...DUMMY_BLOG.find((b) => b.id === blogId) };
+  const blogIndex = DUMMY_BLOG.findIndex((b) => b.id === blogId);
+  updateBlog.blgentry = blgentry;
+
+  DUMMY_BLOG[blogIndex] = updateBlog;
+
+  res.status(200).json({ blog: updateBlog });
+};
 
 const deleteBlog = (req, res, next) => {};
 
