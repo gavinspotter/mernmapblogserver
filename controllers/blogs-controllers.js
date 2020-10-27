@@ -48,7 +48,11 @@ const updateBlog = (req, res, next) => {
   res.status(200).json({ blog: updateBlog });
 };
 
-const deleteBlog = (req, res, next) => {};
+const deleteBlog = (req, res, next) => {
+  const blogId = req.params.bid;
+  DUMMY_BLOG = DUMMY_BLOG.filter((j) => j.id !== blogId);
+  res.status(200).json({ message: "deleted blog post" });
+};
 
 exports.getBlogsByUserId = getBlogsByUserId;
 
