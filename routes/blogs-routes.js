@@ -1,12 +1,12 @@
 const express = require("express");
 
-const journalsControllers = require("../controllers/blogs-controllers");
+const blogsControllers = require("../controllers/blogs-controllers");
 
 const router = express.Router();
 
-router.get("/user/:uid", journalsControllers.getBlogsByUserId);
+router.get("/user/:uid", blogsControllers.getBlogsByUserId);
 
-router.post("/");
+router.post("/", blogsControllers.createBlog);
 
 router.patch("/:jid");
 
