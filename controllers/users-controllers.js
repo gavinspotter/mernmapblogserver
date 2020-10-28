@@ -1,3 +1,12 @@
+const DUMMY_USER = [
+  {
+    id: "u1",
+    name: "gavin potter",
+    email: "gavin@gmail.com",
+    password: "testpassword",
+  },
+];
+
 const getUsers = (req, res, next) => {};
 
 const signup = (req, res, next) => {};
