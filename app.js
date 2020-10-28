@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const blogsRoutes = require("./routes/blogs-routes");
+const usersRoutes = require("./routes/users-routes");
 const journalsRoutes = require("./routes/journals-routes");
 const placesRoutes = require("./routes/places-routes");
 const HttpError = require("./models/http-error");
@@ -11,6 +12,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use("/api/places", placesRoutes);
+
+app.use("/api/users", usersRoutes);
 
 app.use("/api/blog", blogsRoutes);
 

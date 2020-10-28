@@ -25,6 +25,11 @@ const signup = (req, res, next) => {
     password,
   };
 
+  const hasUser = DUMMY_USER.find((u) => u.email === email);
+  if (hasUser) {
+    throw new HttpError("could not create user email exists");
+  }
+
   DUMMY_USER.push(createdUser);
 
   res.status(201).json({ user: createdUser });
