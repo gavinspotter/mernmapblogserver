@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 
+const HttpError = require("../models/http-error");
+
 const DUMMY_USER = [
   {
     id: "u1",
@@ -28,7 +30,17 @@ const signup = (req, res, next) => {
   res.status(201).json({ user: createdUser });
 };
 
-const login = (req, res, next) => {};
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  const identifiedUser = DUMMY_USER.find((u) => u.email === email);
+
+  if (!identifiedUser || identifiedUser.password !== password) {
+    throw new HttpError("could not identified user", 401);
+  }
+
+  res.json({ message: "logged in" });
+};
 
 exports.getUsers = getUsers;
 exports.signup = signup;
