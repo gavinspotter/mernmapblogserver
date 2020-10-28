@@ -7,7 +7,9 @@ const DUMMY_USER = [
   },
 ];
 
-const getUsers = (req, res, next) => {};
+const getUsers = (req, res, next) => {
+  res.json({ users: DUMMY_USER });
+};
 
 const signup = (req, res, next) => {};
 
