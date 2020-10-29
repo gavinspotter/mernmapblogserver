@@ -10,7 +10,7 @@ router.get("/user/:uid", journalsControllers.getJournalsByUserId);
 
 router.post(
   "/",
-  [check("date").not().isLength({ min: 3 }), check("entry").not().isEmpty()],
+  [check("date").isLength({ min: 3 }), check("entry").not().isEmpty()],
   journalsControllers.createJournal
 );
 
