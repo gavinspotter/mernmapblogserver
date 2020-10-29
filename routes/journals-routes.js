@@ -8,7 +8,11 @@ const router = express.Router();
 
 router.get("/user/:uid", journalsControllers.getJournalsByUserId);
 
-router.post("/", journalsControllers.createJournal);
+router.post(
+  "/",
+  [check("date").not().isLength({ min: 3 }), check("entry").not().isEmpty()],
+  journalsControllers.createJournal
+);
 
 router.patch("/:jid", journalsControllers.updateJournal);
 
