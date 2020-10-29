@@ -27,6 +27,12 @@ const getJournalsByUserId = (req, res, next) => {
 };
 
 const createJournal = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    next(new HttpError("invalid inputs passed", 422));
+  }
+
   const { date, entry, creator } = req.body;
   const createdJournal = {
     id: uuidv4(),
