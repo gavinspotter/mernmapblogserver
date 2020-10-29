@@ -1,5 +1,7 @@
 const express = require("express");
 
+const { check } = require("express-validator");
+
 const blogsControllers = require("../controllers/blogs-controllers");
 
 const router = express.Router();
