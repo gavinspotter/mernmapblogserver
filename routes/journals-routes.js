@@ -14,7 +14,11 @@ router.post(
   journalsControllers.createJournal
 );
 
-router.patch("/:jid", journalsControllers.updateJournal);
+router.patch(
+  "/:jid",
+  [check("date").isLength({ min: 3 }), check("entry").not().isEmpty()],
+  journalsControllers.updateJournal
+);
 
 router.delete("/:jid", journalsControllers.deleteJournal);
 
