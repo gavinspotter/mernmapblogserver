@@ -24,6 +24,12 @@ const getBlogsByUserId = (req, res, next) => {
 };
 
 const createBlog = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    next(new HttpError("invalid inputs passed", 422));
+  }
+
   const { blgentry, creator } = req.body;
   const createdBlog = {
     id: uuidv4(),
