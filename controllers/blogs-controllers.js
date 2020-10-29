@@ -44,6 +44,12 @@ const createBlog = (req, res, next) => {
 };
 
 const updateBlog = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    next(new HttpError("invalid inputs passed", 422));
+  }
+
   const { blgentry } = req.body;
   const blogId = req.params.bid;
 
