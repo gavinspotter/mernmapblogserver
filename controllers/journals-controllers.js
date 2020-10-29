@@ -47,6 +47,12 @@ const createJournal = (req, res, next) => {
 };
 
 const updateJournal = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    next(new HttpError("invalid inputs passed", 422));
+  }
+
   const { date, entry } = req.body;
   const journalId = req.params.jid;
 
