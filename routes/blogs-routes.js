@@ -14,7 +14,11 @@ router.post(
   blogsControllers.createBlog
 );
 
-router.patch("/:bid", blogsControllers.updateBlog);
+router.patch(
+  "/:bid",
+  [check("blgentry").not().isEmpty()],
+  blogsControllers.updateBlog
+);
 
 router.delete("/:bid", blogsControllers.deleteBlog);
 
