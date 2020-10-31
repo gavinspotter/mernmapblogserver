@@ -33,4 +33,5 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "an unknown error occured" });
 });
 
+mongoose.connect().then().catch();
 app.listen(5000);
