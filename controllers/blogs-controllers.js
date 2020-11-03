@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
+const Blog = require("../models/blog");
 
 let DUMMY_BLOG = [
   {
@@ -33,13 +34,7 @@ const createBlog = (req, res, next) => {
   }
 
   const { blgentry, creator } = req.body;
-  const createdBlog = {
-    id: uuidv4(),
-    blgentry,
-    creator,
-  };
-
-  DUMMY_BLOG.push(createdBlog);
+  const createdBlog = DUMMY_BLOG.push(createdBlog);
   res.status(201).json({ blog: createdBlog });
 };
 
