@@ -26,7 +26,7 @@ const getBlogsByUserId = (req, res, next) => {
   res.json({ blog });
 };
 
-const createBlog = (req, res, next) => {
+const createBlog = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -36,8 +36,17 @@ const createBlog = (req, res, next) => {
   const { blgentry, creator } = req.body;
   const createdBlog = new Blog({
     blgentry,
+    imge:
+      "https://upload.wikimedia.org/wikipedia/commons/1/1b/The_judgement_of_the_dead_in_the_presence_of_Osiris.jpg",
     creator,
   });
+
+  try {
+    await createdBlog.save();
+  } catch (err) {
+    const error = new HttpError("create blog failed please try again", 500);
+    return next(error);
+  }
 
   res.status(201).json({ blog: createdBlog });
 };
