@@ -34,7 +34,11 @@ const createBlog = (req, res, next) => {
   }
 
   const { blgentry, creator } = req.body;
-  const createdBlog = DUMMY_BLOG.push(createdBlog);
+  const createdBlog = new Blog({
+    blgentry,
+    creator,
+  });
+
   res.status(201).json({ blog: createdBlog });
 };
 
