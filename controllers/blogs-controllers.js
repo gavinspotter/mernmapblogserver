@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
+const place = require("../models/place");
 
 let DUMMY_BLOG = [
   {
@@ -31,7 +32,7 @@ const getBlogsByUserId = async (req, res, next) => {
     return next(new HttpError("could not find blog"));
   }
 
-  res.json({ blog });
+  res.json({ blog: blog.map((blg) => blg.toObject({ getters: true })) });
 };
 
 const createBlog = async (req, res, next) => {
@@ -59,7 +60,7 @@ const createBlog = async (req, res, next) => {
   res.status(201).json({ blog: createdBlog });
 };
 
-const updateBlog = (req, res, next) => {
+const updateBlog = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -69,9 +70,7 @@ const updateBlog = (req, res, next) => {
   const { blgentry } = req.body;
   const blogId = req.params.bid;
 
-  const updateBlog = { ...DUMMY_BLOG.find((b) => b.id === blogId) };
-  const blogIndex = DUMMY_BLOG.findIndex((b) => b.id === blogId);
-  updateBlog.blgentry = blgentry;
+  let blog;
 
   DUMMY_BLOG[blogIndex] = updateBlog;
 
