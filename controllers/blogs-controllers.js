@@ -17,8 +17,14 @@ const getBlogsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let blog;
 
-  try{
-    blog = wait Blog.find({creator: userId})
+  try {
+    blog = await Blog.find({ creator: userId });
+  } catch (err) {
+    const error = new HttpError(
+      "fetching blog posts failed, please try again",
+      500
+    );
+    return next(error);
   }
 
   if (!blog || blog.length === 0) {
