@@ -13,11 +13,13 @@ let DUMMY_BLOG = [
   },
 ];
 
-const getBlogsByUserId = (req, res, next) => {
+const getBlogsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
-  const blog = DUMMY_BLOG.filter((b) => {
-    return b.creator === userId;
-  });
+  let blog;
+
+  try{
+    blog = wait Blog.find({creator: userId})
+  }
 
   if (!blog || blog.length === 0) {
     return next(new HttpError("could not find blog"));
