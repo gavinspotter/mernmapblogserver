@@ -72,7 +72,9 @@ const updateBlog = async (req, res, next) => {
 
   let blog;
 
-  DUMMY_BLOG[blogIndex] = updateBlog;
+  try {
+    blog = await Blog.findById(blogId);
+  }
 
   res.status(200).json({ blog: updateBlog });
 };
