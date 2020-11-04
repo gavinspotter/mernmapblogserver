@@ -82,6 +82,8 @@ const updateBlog = async (req, res, next) => {
     return next(error);
   }
 
+  blog.blgentry = blgentry;
+
   res.status(200).json({ blog: updateBlog });
 };
 
