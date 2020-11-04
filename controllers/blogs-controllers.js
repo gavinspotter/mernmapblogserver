@@ -74,6 +74,12 @@ const updateBlog = async (req, res, next) => {
 
   try {
     blog = await Blog.findById(blogId);
+  } catch (err) {
+    const error = new HttpError(
+      " something went wrong could not update blog posts",
+      500
+    );
+    return next(error);
   }
 
   res.status(200).json({ blog: updateBlog });
