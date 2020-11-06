@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
+const Journal = require("../models/journal");
 
 let DUMMY_JOURNAL = [
   {
@@ -13,17 +14,26 @@ let DUMMY_JOURNAL = [
   },
 ];
 
-const getJournalsByUserId = (req, res, next) => {
+const getJournalsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
-  const journal = DUMMY_JOURNAL.filter((p) => {
-    return p.creator === userId;
-  });
+  let journal;
+
+  try {
+    journal = await Journal.find({ creator: userId });
+  } catch (err) {
+    const error = new HttpError(
+      "fetching journals failed, please try again",
+      500
+    );
+  }
 
   if (!journal || journal.length === 0) {
     return next(new HttpError("could not find journals"));
   }
 
-  res.json({ journal });
+  res.json({
+    journal: journal.map((jour) => jour.toObject({ getters: true })),
+  });
 };
 
 const createJournal = (req, res, next) => {
