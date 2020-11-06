@@ -4,7 +4,6 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
-const place = require("../models/place");
 
 let DUMMY_BLOG = [
   {
@@ -94,7 +93,7 @@ const updateBlog = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ blog: updateBlog });
+  res.status(200).json({ blog: blog.toObject({ getters: true }) });
 };
 
 const deleteBlog = (req, res, next) => {
