@@ -25,6 +25,7 @@ const getJournalsByUserId = async (req, res, next) => {
       "fetching journals failed, please try again",
       500
     );
+    return next(error);
   }
 
   if (!journal || journal.length === 0) {
@@ -36,7 +37,7 @@ const getJournalsByUserId = async (req, res, next) => {
   });
 };
 
-const createJournal = (req, res, next) => {
+const createJournal = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -44,14 +45,18 @@ const createJournal = (req, res, next) => {
   }
 
   const { date, entry, creator } = req.body;
-  const createdJournal = {
-    id: uuidv4(),
+  const createdJournal = new Journal({
     date,
     entry,
     creator,
-  };
+  });
 
-  DUMMY_JOURNAL.push(createdJournal);
+  try {
+    await createdJournal.save();
+  } catch (err) {
+    const error = new HttpError("created journal failed please try again", 500);
+    return next(error);
+  }
 
   res.status(201).json({ journal: createdJournal });
 };
