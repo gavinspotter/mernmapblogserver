@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const Journal = require("../models/journal");
+const blog = require("../models/blog");
 
 let DUMMY_JOURNAL = [
   {
@@ -61,7 +62,7 @@ const createJournal = async (req, res, next) => {
   res.status(201).json({ journal: createdJournal });
 };
 
-const updateJournal = (req, res, next) => {
+const updateJournal = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -71,14 +72,32 @@ const updateJournal = (req, res, next) => {
   const { date, entry } = req.body;
   const journalId = req.params.jid;
 
-  const updateJournal = { ...DUMMY_JOURNAL.find((j) => j.id === journalId) };
-  const journalIndex = DUMMY_JOURNAL.findIndex((j) => j.id === journalId);
-  updateJournal.date = date;
-  updateJournal.entry = entry;
+  let journal;
 
-  DUMMY_JOURNAL[journalIndex] = updateJournal;
+  try {
+    journal = await Journal.findById(journalId);
+  } catch (err) {
+    const error = new HttpError(
+      "something went wrong could not update jounral",
+      500
+    );
+    return next(error);
+  }
 
-  res.status(200).json({ journal: updateJournal });
+  journal.date = date;
+  journal.entry = entry;
+
+  try {
+    await journal.save();
+  } catch (err) {
+    const error = new HttpError(
+      " something went wrong could not update journal",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ journal: journal.toObject({ getters: true }) });
 };
 
 const deleteJournal = (req, res, next) => {
