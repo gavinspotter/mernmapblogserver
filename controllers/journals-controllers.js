@@ -5,6 +5,7 @@ const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
 const Journal = require("../models/journal");
 const blog = require("../models/blog");
+const place = require("../models/place");
 
 let DUMMY_JOURNAL = [
   {
@@ -100,9 +101,30 @@ const updateJournal = async (req, res, next) => {
   res.status(200).json({ journal: journal.toObject({ getters: true }) });
 };
 
-const deleteJournal = (req, res, next) => {
+const deleteJournal = async (req, res, next) => {
   const journalId = req.params.jid;
-  DUMMY_JOURNAL = DUMMY_JOURNAL.filter((j) => j.id !== journalId);
+
+  let journal;
+
+  try {
+    journal = await Journal.findById(journalId);
+  } catch (err) {
+    const error = new HttpError(
+      " something went wrong could not locate journal",
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await journal.remove();
+  } catch (err) {
+    const error = new HttpError(
+      "something went wrong could not remove journal",
+      500
+    );
+  }
+
   res.status(200).json({ message: "deleted journal entry" });
 };
 
