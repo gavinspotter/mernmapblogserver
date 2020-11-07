@@ -18,7 +18,7 @@ const getUsers = (req, res, next) => {
   res.json({ users: DUMMY_USER });
 };
 
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -27,17 +27,31 @@ const signup = (req, res, next) => {
 
   const { name, email, password } = req.body;
 
+  let existingUser;
+  try {
+    existingUser = User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError(
+      "signing up failed please try again later",
+      500
+    );
+    return next(error);
+  }
+
+  if (existingUser) {
+    const error = new HttpError(
+      "user exists already, please login instead",
+      422
+    );
+    return next(error);
+  }
+
   const createdUser = {
     id: uuidv4(),
     name,
     email,
     password,
   };
-
-  const hasUser = DUMMY_USER.find((u) => u.email === email);
-  if (hasUser) {
-    throw new HttpError("could not create user email exists");
-  }
 
   DUMMY_USER.push(createdUser);
 
