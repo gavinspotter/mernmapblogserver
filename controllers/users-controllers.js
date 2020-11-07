@@ -22,10 +22,10 @@ const signup = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    throw new HttpError("invalid inputs passed", 422);
+    return next(new HttpError("invalid inputs passed", 422));
   }
 
-  const { name, email, password } = req.body;
+  const { name, email, password, places } = req.body;
 
   let existingUser;
   try {
@@ -34,14 +34,6 @@ const signup = async (req, res, next) => {
     const error = new HttpError(
       "signing up failed please try again later",
       500
-    );
-    return next(error);
-  }
-
-  if (existingUser) {
-    const error = new HttpError(
-      "user exists already, please login instead",
-      422
     );
     return next(error);
   }
