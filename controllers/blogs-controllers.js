@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
+const journal = require("../models/journal");
 
 let DUMMY_BLOG = [
   {
@@ -96,9 +97,28 @@ const updateBlog = async (req, res, next) => {
   res.status(200).json({ blog: blog.toObject({ getters: true }) });
 };
 
-const deleteBlog = (req, res, next) => {
+const deleteBlog = async (req, res, next) => {
   const blogId = req.params.bid;
-  DUMMY_BLOG = DUMMY_BLOG.filter((j) => j.id !== blogId);
+
+  let blog;
+
+  try {
+    blog = await Blog.findById(blogId);
+  } catch (err) {
+    const error = new HttpError("something went from could not find blog", 500);
+    return next(error);
+  }
+
+  try {
+    await blog.remove();
+  } catch (err) {
+    const error = new HttpError(
+      "something went wrong could not delete blog post",
+      500
+    );
+    return next(error);
+  }
+
   res.status(200).json({ message: "deleted blog post" });
 };
 

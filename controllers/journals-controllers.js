@@ -123,6 +123,7 @@ const deleteJournal = async (req, res, next) => {
       "something went wrong could not remove journal",
       500
     );
+    return next(error);
   }
 
   res.status(200).json({ message: "deleted journal entry" });
