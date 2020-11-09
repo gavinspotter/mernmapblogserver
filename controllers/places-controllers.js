@@ -8,20 +8,6 @@ const getCoordsForAddress = require("../util/location");
 const Place = require("../models/place");
 const User = require("../models/user");
 
-let DUMMY_PLACES = [
-  {
-    id: "p1",
-    title: "realm of the dead",
-    description: "where osiris chills",
-    location: {
-      lat: 42.9463593,
-      lng: -70.795102,
-    },
-    address: "163 northshore road hampton NH",
-    creator: "u1",
-  },
-];
-
 const getPlaceById = async (req, res, next) => {
   const placeId = req.params.pid;
 
@@ -189,7 +175,12 @@ const deletePlace = async (req, res, next) => {
   }
 
   try {
-    await place.remove();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await place.remove({ session: sess });
+    place.creator.places.pull(place);
+    await place.creator.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "something went wrong, could not delete place",
