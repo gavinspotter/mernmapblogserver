@@ -52,6 +52,20 @@ const createBlog = async (req, res, next) => {
     creator,
   });
 
+  let user;
+
+  try {
+    user = await User.findById(creator);
+  } catch {
+    const error = new HttpError("creating place failed please try again", 500);
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("could not find user for provided id", 404);
+    return next(error);
+  }
+
   try {
     await createdBlog.save();
   } catch (err) {
