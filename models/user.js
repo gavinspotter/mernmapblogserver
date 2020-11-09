@@ -10,6 +10,7 @@ const userSchema = new Schema({
   image: { type: String, required: true },
   places: [{ type: mongoose.Types.ObjectId, required: true, ref: "Place" }],
   journals: [{ type: mongoose.Types.ObjectId, required: true, ref: "Journal" }],
+  blogs: [{ type: mongoose.Types.ObjectId, required: true, ref: "Blog" }],
 });
 
 userSchema.plugin(uniqueValidator);
