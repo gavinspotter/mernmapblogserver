@@ -54,8 +54,29 @@ const createJournal = async (req, res, next) => {
     creator,
   });
 
+  let user;
+
   try {
-    await createdJournal.save();
+    user = await User.findById(creator);
+  } catch {
+    const error = new HttpError("creating place failed please try again", 500);
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("could not find user for provided id", 404);
+    return next(error);
+  }
+
+  console.log(user);
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await createdJournal.save({ session: sess });
+    user.journals.push(createdJournal);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError("created journal failed please try again", 500);
     return next(error);

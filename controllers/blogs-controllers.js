@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
-const journal = require("../models/journal");
+const User = require("../models/user");
 
 let DUMMY_BLOG = [
   {
