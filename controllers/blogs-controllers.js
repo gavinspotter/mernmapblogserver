@@ -67,7 +67,12 @@ const createBlog = async (req, res, next) => {
   }
 
   try {
-    await createdBlog.save();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await createdBlog.save({ session: sess });
+    user.blogs.push(createdBlog);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError("create blog failed please try again", 500);
     return next(error);
