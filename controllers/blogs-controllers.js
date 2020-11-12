@@ -124,7 +124,7 @@ const deleteBlog = async (req, res, next) => {
   let blog;
 
   try {
-    blog = await Blog.findById(blogId);
+    blog = await Blog.findById(blogId).populate("creator");
   } catch (err) {
     const error = new HttpError("something went from could not find blog", 500);
     return next(error);
