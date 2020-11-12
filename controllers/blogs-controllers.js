@@ -131,7 +131,12 @@ const deleteBlog = async (req, res, next) => {
   }
 
   try {
-    await blog.remove();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await blog.remove({ session: sess });
+    blog.creator.blogs.pull(blog);
+    await blog.creator.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "something went wrong could not delete blog post",
