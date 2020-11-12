@@ -129,7 +129,7 @@ const deleteJournal = async (req, res, next) => {
   let journal;
 
   try {
-    journal = await Journal.findById(journalId);
+    journal = await Journal.findById(journalId).populate("creator");
   } catch (err) {
     const error = new HttpError(
       " something went wrong could not locate journal",
@@ -138,8 +138,18 @@ const deleteJournal = async (req, res, next) => {
     return next(error);
   }
 
+  if (!journal) {
+    const error = new HttpError("could not find journal");
+    return next(error);
+  }
+
   try {
-    await journal.remove();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await journal.remove({ session: sess });
+    journal.creator.journals.pull(journal);
+    await journal.creator.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "something went wrong could not remove journal",
