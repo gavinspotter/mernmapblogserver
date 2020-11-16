@@ -8,14 +8,6 @@ const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
-let DUMMY_BLOG = [
-  {
-    id: "b1",
-    blgentry: "this is my first blog",
-    creator: "u1",
-  },
-];
-
 const getBlogsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let blog;

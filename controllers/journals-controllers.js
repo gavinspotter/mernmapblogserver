@@ -8,15 +8,6 @@ const HttpError = require("../models/http-error");
 const Journal = require("../models/journal");
 const User = require("../models/user");
 
-let DUMMY_JOURNAL = [
-  {
-    id: "j1",
-    date: "october 25",
-    entry: "my first entry",
-    creator: "u1",
-  },
-];
-
 const getJournalsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let journal;
