@@ -18,6 +18,11 @@ const getBlogById = async(req, res, next) => {
     blog = await Blog.findById(blogId)
   } catch (err) {
     const error = new HttpError("couldnt find blog", 500)
+    return next(error)
+  }
+
+  if (!blog) {
+    const error = new HttpError("couldnt find a blog", 404)
   }
 
 }
