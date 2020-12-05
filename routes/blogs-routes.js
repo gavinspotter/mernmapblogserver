@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get("/user/:uid", blogsControllers.getBlogsByUserId);
 
+router.get("/:bid")
+
 router.post(
   "/",
   [check("blgentry").not().isEmpty()],
