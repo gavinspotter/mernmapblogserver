@@ -8,6 +8,11 @@ const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
+
+const getBlogById = async(req, res, next) => {
+  
+}
+
 const getBlogsByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let blog;
