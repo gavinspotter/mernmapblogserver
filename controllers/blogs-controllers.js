@@ -23,8 +23,10 @@ const getBlogById = async(req, res, next) => {
 
   if (!blog) {
     const error = new HttpError("couldnt find a blog", 404)
+    return next(error)
   }
 
+  res.json({blog: blog.toObject({getters: true})})
 }
 
 const getBlogsByUserId = async (req, res, next) => {
