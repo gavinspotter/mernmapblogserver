@@ -13,6 +13,13 @@ const getBlogById = async(req, res, next) => {
   const blogId = req.params.bid
 
   let blog
+
+  try {
+    blog = await Blog.findById(blogId)
+  } catch (err) {
+    const error = new HttpError("couldnt find blog", 500)
+  }
+
 }
 
 const getBlogsByUserId = async (req, res, next) => {
