@@ -10,7 +10,7 @@ const User = require("../models/user");
 
 
 const getBlogById = async(req, res, next) => {
-
+  const blogId = req.params.bid
 }
 
 const getBlogsByUserId = async (req, res, next) => {
