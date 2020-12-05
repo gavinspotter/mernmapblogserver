@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/user/:uid", blogsControllers.getBlogsByUserId);
 
-router.get("/:bid")
+router.get("/:bid", blogsControllers.getBlogById)
 
 router.post(
   "/",
