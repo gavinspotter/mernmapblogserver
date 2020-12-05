@@ -10,7 +10,7 @@ const User = require("../models/user");
 
 
 const getBlogById = async(req, res, next) => {
-  
+
 }
 
 const getBlogsByUserId = async (req, res, next) => {
@@ -144,6 +144,8 @@ const deleteBlog = async (req, res, next) => {
 
   res.status(200).json({ message: "deleted blog post" });
 };
+
+exports.getBlogById = getBlogById
 
 exports.getBlogsByUserId = getBlogsByUserId;
 
