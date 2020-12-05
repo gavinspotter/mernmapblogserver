@@ -11,6 +11,8 @@ const User = require("../models/user");
 
 const getBlogById = async(req, res, next) => {
   const blogId = req.params.bid
+
+  let blog
 }
 
 const getBlogsByUserId = async (req, res, next) => {
