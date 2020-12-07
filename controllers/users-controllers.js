@@ -25,6 +25,8 @@ const signup = async (req, res, next) => {
     return next(new HttpError("invalid inputs passed", 422));
   }
 
+
+
   const { name, email, password } = req.body;
 
   let existingUser;
@@ -41,7 +43,7 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Ra_Barque.jpg",
+    image: req.file.path,
     password,
     places: [],
     journals: [],
