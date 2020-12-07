@@ -1,6 +1,6 @@
 const multer = require("multer")
 
-const MIMI_TYPE_MAP = {
+const MIME_TYPE_MAP = {
     "image/png": "png",
     "image/jpeg": "jpeg",
     "image/jpg": "jpg",
@@ -8,8 +8,12 @@ const MIMI_TYPE_MAP = {
 const fileUpload = multer({
     limits: 5000000,
     storage: multer.diskStorage({
-        destination: (req, file, cb)=> {},
-        filename: (req, file, cb) => {}
+        destination: (req, file, cb)=> {
+
+        },
+        filename: (req, file, cb) => {
+            const ext = MIME_TYPE_MAP[file.mimetype]
+        }
     })
 })
 
