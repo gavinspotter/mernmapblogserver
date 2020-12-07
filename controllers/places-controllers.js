@@ -173,6 +173,8 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
+  const imagePath = place.image
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -187,6 +189,8 @@ const deletePlace = async (req, res, next) => {
     );
     return next(error);
   }
+
+  
 
   res.status(200).json({ message: "deleted place" });
 };
