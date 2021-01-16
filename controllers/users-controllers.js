@@ -42,6 +42,8 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
+  let hashedPassword
+
   const createdUser = new User({
     name,
     email,
