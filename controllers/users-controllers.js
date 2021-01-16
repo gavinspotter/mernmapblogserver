@@ -19,8 +19,7 @@ const getUsers = async (req, res, next) => {
     return next(error);
   }
 
-  let token
-  token = jwt.sign()
+
 
 
   res.json({ users: users.map((user) => user.toObject({ getters: true })) });
@@ -74,6 +73,12 @@ const signup = async (req, res, next) => {
     const error = new HttpError("signing up failed please try again.", 500);
     return next(error);
   }
+
+  let token
+  token = jwt.sign(
+    { userId: createdUser.id, email: createdUser.email },
+    'supersecret_dont_share',
+    { expiresIn: "1h" })
 
   res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
