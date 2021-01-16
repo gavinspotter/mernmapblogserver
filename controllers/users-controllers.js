@@ -20,7 +20,7 @@ const getUsers = async (req, res, next) => {
   }
 
   let token
-
+  token = jwt.sign()
 
 
   res.json({ users: users.map((user) => user.toObject({ getters: true })) });
