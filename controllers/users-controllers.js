@@ -92,6 +92,15 @@ const login = async (req, res, next) => {
   }
 
   let isValidPassword = false
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password)
+  } catch (err) {
+    const error = new HttpError(
+      "could not log you in please check your credentials", 500
+    )
+    return next(error)
+  }
+
 
   res.json({
     message: "logged in",
