@@ -18,6 +18,11 @@ const getUsers = async (req, res, next) => {
     );
     return next(error);
   }
+
+  let token
+
+
+
   res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
