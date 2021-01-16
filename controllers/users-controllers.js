@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user");
@@ -97,6 +98,14 @@ const login = async (req, res, next) => {
   } catch (err) {
     const error = new HttpError(
       "could not log you in please check your credentials", 500
+    )
+    return next(error)
+  }
+
+  if (!isValidPassword) {
+    const error = new HttpError(
+      "invalid credentials could not log you in",
+      401
     )
     return next(error)
   }
