@@ -75,10 +75,19 @@ const signup = async (req, res, next) => {
   }
 
   let token
-  token = jwt.sign(
-    { userId: createdUser.id, email: createdUser.email },
-    'supersecret_dont_share',
-    { expiresIn: "1h" })
+
+  try {
+    token = jwt.sign(
+      { userId: createdUser.id, email: createdUser.email },
+      'supersecret_dont_share',
+      { expiresIn: "1h" })
+
+  } catch (err) {
+    const error = new HttpError(
+      "sign up failed",
+      500
+    )
+  }
 
   res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
