@@ -43,6 +43,7 @@ const signup = async (req, res, next) => {
   }
 
   let hashedPassword
+  hashedPassword = await bcrypt.hash(password, 12)
 
   const createdUser = new User({
     name,
