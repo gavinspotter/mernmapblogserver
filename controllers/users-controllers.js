@@ -146,8 +146,9 @@ const login = async (req, res, next) => {
 
 
   res.json({
-    message: "logged in",
-    user: existingUser.toObject({ getters: true }),
+    userId: existingUser.id,
+    email: existingUser.email,
+    token: token
   });
 };
 
