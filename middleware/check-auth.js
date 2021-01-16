@@ -10,6 +10,8 @@ module.exports = (req, res, next) => {
             const error = new HttpError('Authentication failed', 401)
             return next(error)
         }
+
+        const decodedToken = jwt.verify(token, 'supersecret_dont_share')
     } catch (err) {
         const error = new HttpError("authorization failed", 401)
         return next(error)
