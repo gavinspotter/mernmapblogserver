@@ -2,6 +2,7 @@
     "env": {
         "DB_USER": "gavin",
         "DB_PASSWORD": "Password123",
-        "DB_NAME": "project3"
+        "DB_NAME": "project3",
+        "GOOGLE_API_KEY": "..."
     }
 }
