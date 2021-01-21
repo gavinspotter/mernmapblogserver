@@ -45,8 +45,8 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  if(req.file) {
-    fs.unlink(req.file.path, (err)=>{
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
       console.log(err)
     })
   }
@@ -59,7 +59,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://gavin:Password123@cluster0.d3tnt.mongodb.net/project3?retryWrites=true&w=majority"
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.d3tnt.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
     app.listen(5000);
