@@ -115,6 +115,14 @@ const updateBlog = async (req, res, next) => {
     return next(error);
   }
 
+  if (blog.creator.toString() !== req.userData.userId) {
+    const error = new HttpError(
+      "you are not allowed to edit this blog",
+      401
+    )
+    return next(error)
+  }
+
   blog.blgentry = blgentry;
 
   try {
