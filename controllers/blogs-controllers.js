@@ -158,6 +158,8 @@ const deleteBlog = async (req, res, next) => {
     return next(error)
   }
 
+  const imagePath = blog.imge
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
