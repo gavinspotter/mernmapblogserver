@@ -67,7 +67,7 @@ const createBlog = async (req, res, next) => {
   let user;
 
   try {
-    user = await User.findById(creator);
+    user = await User.findById(req.userData.userId);
   } catch {
     const error = new HttpError("creating place failed please try again", 500);
     return next(error);
