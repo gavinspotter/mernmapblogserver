@@ -4,6 +4,8 @@ const { validationResult } = require("express-validator");
 
 const mongoose = require("mongoose");
 
+const fs = require("fs")
+
 const HttpError = require("../models/http-error");
 const Blog = require("../models/blog");
 const User = require("../models/user");
