@@ -150,6 +150,14 @@ const deleteBlog = async (req, res, next) => {
     return next(error);
   }
 
+  if (blog.creator.toString() !== req.userData.userId) {
+    const error = new HttpError(
+      "you are not allowed to edit this blog",
+      401
+    )
+    return next(error)
+  }
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
