@@ -57,11 +57,11 @@ const createBlog = async (req, res, next) => {
     next(new HttpError("invalid inputs passed", 422));
   }
 
-  const { blgentry, creator } = req.body;
+  const { blgentry } = req.body;
   const createdBlog = new Blog({
     blgentry,
     imge: req.file.path,
-    creator,
+    creator: req.userData.userId,
   });
 
   let user;
