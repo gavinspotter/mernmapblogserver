@@ -4,6 +4,8 @@ const { check } = require("express-validator");
 
 const blogsControllers = require("../controllers/blogs-controllers");
 
+const checkAuth = require("../middleware/check-auth")
+
 const router = express.Router();
 
 router.get("/user/:uid", blogsControllers.getBlogsByUserId);
