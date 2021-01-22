@@ -12,6 +12,8 @@ router.get("/user/:uid", blogsControllers.getBlogsByUserId);
 
 router.get("/:bid", blogsControllers.getBlogById)
 
+router.use(checkAuth)
+
 router.post(
   "/",
   [check("blgentry").not().isEmpty()],
