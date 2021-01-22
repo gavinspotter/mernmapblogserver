@@ -9,7 +9,7 @@ const Blog = require("../models/blog");
 const User = require("../models/user");
 
 
-const getBlogById = async(req, res, next) => {
+const getBlogById = async (req, res, next) => {
   const blogId = req.params.bid
 
   let blog
@@ -26,7 +26,7 @@ const getBlogById = async(req, res, next) => {
     return next(error)
   }
 
-  res.json({blog: blog.toObject({getters: true})})
+  res.json({ blog: blog.toObject({ getters: true }) })
 }
 
 const getBlogsByUserId = async (req, res, next) => {
@@ -60,8 +60,7 @@ const createBlog = async (req, res, next) => {
   const { blgentry, creator } = req.body;
   const createdBlog = new Blog({
     blgentry,
-    imge:
-      "https://upload.wikimedia.org/wikipedia/commons/1/1b/The_judgement_of_the_dead_in_the_presence_of_Osiris.jpg",
+    imge: req.file.path,
     creator,
   });
 
